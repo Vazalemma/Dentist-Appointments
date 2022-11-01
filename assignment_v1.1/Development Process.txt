@@ -1,0 +1,75 @@
+
+/*
+*   Development Process
+*/
+
+I already had IntelliJ IDEA installed. Tried updating from 2018 to 2022 but seems like newer version is a trial, even through the community version should be free? Maybe I downloaded the wrong thing when I clicked "update" inside the program, but nonetheless, I have a working IntelliJ from my bachelor's degree courses and personal projects, so I might not require an update right now. Maven project import went successfully with no hiccups. This also means stage 0 complete.
+
+
+
+Stage 1 [3-4 hours]:
+
+Alright, so first, we need to change <input type="text"> into a <select> instead.
+I found the form.html, but it does use a "th:field" style that I've never seen before. Probably commonly used in development, but not something anyone has taught me or made me experiment with.
+Ctrl+Shift+I in chrome browser helps me a bit in this to make+see changes in live-time.
+
+Now, as for adding the names, one would think adding them in manually into the form.html would not be the correct answer, which means I would have to take them from the server, but I'm not sure what the task is telling me about the database being already set up in-memory. Are there names already there? Maybe I have to save and load names from there. Did I miss the location of the database somewhere, where is it? How do I access it exactly?
+I don't think I can get away with adding names manually into form.html, how would I validate them otherwise? I feel like I'm already having a bit of trouble even though I know I'm much much better than this, I've just never worked with a style like this before. If I had some basic guide to get me on the right track, I could easily figure out the rest. Hmmm....
+
+I'll add names in form.html for now, maybe I'll figure something out in time and then I can merge it later. I want to get a move on. I'll add 4 names. They may or may not be toothpaste puns.
+
+Next, date and time. If I was a dentist that wanted a dentist app, I would want the date field to include a clickable valendar date, and the time field to be a time choice from, uhh... Let's see what normal dentist times are... 9 to 6 generally. We'll add those, with 30 minute increments, similar to how YouTube has 15 minute increments over the whole 24 hours period. If YouTube can get away with it, then so should I. Although I would much rather make a better input where you can add your own written time and then validate it, but I'd rather stay safe for now. I wonder if there's a better way to generate those than manually adding them though... I'll just do it manually because that's how I know how.
+
+After reviewing the details for a bit, I realized you probably don't want 2 input fields, but rather one field for both date and time, which means I would instead need to update from dd.MM.yyyy to dd.MM.yyyy HH:mm. I would rather have two fields and an easier UI than to write it out manually, but I'm slightly afraid to still change stuff too abruptly so I'll stick to this. It may not be pretty, but at least it's functional, for now.
+
+Next, client-side validation I just assume is the updating of the error feedback text, and server-side validation is the format pattern. I wouldn't be sure what other validation to do.
+
+And finally, saving to server side. I think I found it. I assume DentistVisitService.java is supposed to be the interface I use to save data onto a server. Now I just need to figure out exactly how the saving would work, and I'll probably have to figure out how to load from database later as well. Now, what's the name of the database? Where can I see it? Or do I need to create one using the imported sources and name it myself? It says it's already set up though, so I assume I have to call it from somewhere...
+
+aha! in the maven file, I saw it uses h2 database. Let's see where this gets me.
+
+I'm going to follow what this thing tells me:
+https://www.javatpoint.com/spring-boot-h2-database
+I assume the database service is set up, but I need to create my own schema and tables because those don't seem to be defined or set up anywhere.
+
+Upon creating schema.sql, I got "plugins detected" message. I allowed the plugins to do any changes or whatever, hoping/assuming nothing is going to break afterwards. Update: it says it requires a restart on IntelliJ. I'm gonna pretend I didn't see that.
+
+Update: alright I think it's done? I added a constraint into the database for reg time to be from today to 2011 as well. I think everything should be set, but I'm not sure if it works, and neither am I sure about how I would test it. Also, yes, I noticed the test class folder, and I see you want me to make tests. I'm not sure how to do that yet, or maybe I will be asked to make them later.
+
+Update 2: SQL tables work, but repository requires some bean thingy.
+"Consider defining a bean of type com.javapoint.repository.VisitRepository to visitRepository in com.cgi.dentistapp.service.DentistVisitService"
+I have no idea what this means, and adding "@Bean" in front is not applicable
+Update 3: I changed nothing, but SQL doesn't run aymore. Heck yeah.
+Update 4: nevermind, sql requires seconds as well. Guess I'll add :ss to format for now, and maybe see if I can add :00 later instead.
+
+Update 5: Things are coming along nicely, and everything is starting to make a lot of sense. I even started working on stage 2. I feel like I could make most of the other stages work as well... Except my current program isn't working. There's some base problem which I don't know how to fix, I've followed the online guide but something is still off. I could easily continue doing the rest, but I also want to make it functional, and testing future stages without a functional base is going to be difficult...
+Update 6: it's been 2 minutes since the last update and it seems functional now. Except the submit button, let's see what's wrong with this one.
+
+
+
+Stage 2 [2 hours + brainstorming]: 
+
+I already started with this from the document I used above, it had some extra functionality and I thought viewing all visits would be nice so I added that preemtively. I added a button, I learned the new FormAction html tag to send you to /visits. However, the page seems to not exist? I'm not really getting any closer to making the submit button work either, so in terms of functionality, I'm running into a bit of a wall here, which is going to make any future stages very difficult to complete without the ability to test it. When the base works, building on top becomes so much easier because you already know how to build more base, but building a base with little knowledge on a framework you've never used is a toughie. I'll brainstorm a bit more and see if I can get any more progress going. I want to present something also has function, not just theory.
+
+Update: it's now the next day. I did some more testing and reading, but I'm still not totally sure what's wrong, and I don't want to reset any progress I already have. I'm sure if I went through some guide with examples, then I would be able to continue, but I'm not sure if I would have the time, I don't want to keep you waiting for too long.
+
+I also took a quick look at stage 3. Honestly, it looks fun and simple enough, I've done it in PHP already in another test work project and it's fully functional, except that one was not about dentist appointments, it was about rating experience in restaurants.
+[https://github.com/Vazalemma/hindakogemust]
+
+However, in the current state, I don't think I'll have the time and speed to figure out how to make this work. Stage 3 requires some ability to test things so I can view the UI and see if things are coming along, but without a functional UI, that'll be really difficult to visualise. I learn pretty quickly, especially with a basic guide and examples (I recognize and memorize patterns very easily), but I'll need a bit of that guidance and mentoring to lead me in the right direction. I like figuring things out myself (which is why I haven't contacted or asked anything), so just a direction is good enough with no necessary deep explanation, unless it requires one.
+
+Instead of going through the stages of this project, I'm instead going through the stages of grief right now, because I know I can do so much better and so much more, but I'll have to accept my shortcomings this time. If I had a fully functional example on a different topic of the same king, I could use the patterns to mimic the example and mirror it to the current exercise, but without these examples, using internet guides can take a while, because they often explain something way too greatly which makes it less easy to understand. You can tell I'm going through the stages of grief right now with the way I'm typing, but I'll leave it off here. I tried my best for now with the time I had. Honestly, I don't think I did that badly to begin with, since I haven't really worked with a system like this before, so the fact that I was able to figure out as many base details as I did, I think I can definitely build off of this quite fast. It still looks simple, I just need a working base and an example to draw off of.
+
+I hope that despite the shortcomings, you won't be overly disappointed over the result, and that you might see some potential through my learning curve in this text file. I definitely need some extra mentoring to get my base filled out and to be given some basic direction, but once those are done, I think I can manage pretty well. This is still Java, HTML and SQL, I just need to learn more basics of Spring and its integration with everything to get a working HTML page that uses SQL as a database.
+
+I won't keep you here any longer, so I wish you a great day.
+I'm scared of the feedback, but I hope it all still ends well.
+
+/*
+*  ~Signed, Hendrik Õunapuu
+*/
+
+
+
+
+

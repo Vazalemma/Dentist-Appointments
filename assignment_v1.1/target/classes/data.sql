@@ -1,0 +1,1 @@
+INSERT INTO VISITS (dentist_name, visit_date) VALUES ('Cole Gate', '2022-11-20 15:00:00');
